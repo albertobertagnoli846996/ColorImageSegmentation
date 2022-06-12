@@ -1,7 +1,7 @@
 clear all
 
 
-img = imread('coral-314834.jpg');
+img = imread('TestImages/good_8.jpg');
 
 % [BW, RGBmasked] = createMaskMAX(img);
 
@@ -49,8 +49,8 @@ if (a_var < 100 && b_var < 100)
     
     for i = 1:numel(a_peaks)
         a_peakIndexValue = find(a_hist == a_peaks(i));
-        a_peakValue = a_bins(a_peakIndexValue);
-        sliderBW = sliderBW & ((I(:,:,2) >= a_peakValue-20 ) & (I(:,:,2) <= a_peakValue+20 ));
+        [min, max] = binspeakerror(a_hist, a_bins, a_peaks(i));
+        sliderBW = sliderBW & ((I(:,:,2) >= min ) & (I(:,:,2) <= max ));
     end
     
     
