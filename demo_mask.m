@@ -3,13 +3,8 @@ clear all
 
 img = imread('TestImages/good_8.jpg');
 
-% [BW, RGBmasked] = createMaskMAX(img);
-
 % Convert RGB image to chosen color space
 I = rgb2lab(img);
-
-% Img_a = double(I(:,:,2))./255;
-% Img_b = double(I(:,:,3))./255;
 
 Img_L = I(:,:,1);
 Img_a = I(:,:,2);
@@ -44,7 +39,6 @@ end
 
 
 if (a_var < 100 && b_var < 100)
-    disp('quo');
     sliderBW = (I(:,:,1) >= 0.000 ) & (I(:,:,1) <= 100);
     
     for i = 1:numel(a_peaks)
@@ -68,48 +62,12 @@ BW = sliderBW;
 % Invert mask
 BW = ~BW;
 
- BW = imfill(BW,'holes');
+BW = imfill(BW,'holes');
 
 %Initialize output masked image based on input image.
 maskedRGBImage = img;
 
 %Set background pixels where BW is false to zero.
 maskedRGBImage(repmat(~BW,[1 1 3])) = 0;
-disp('qui');
 
 imshow(maskedRGBImage)
-
-
-
-%         % Define thresholds for channel 1 based on histogram settings
-%         channel1Min = 0.000;
-%         channel1Max = 97.752;
-%
-%         % Define thresholds for channel 2 based on histogram settings
-%         channel2Min = a_mode - 10;
-%         channel2Max = a_mode + 10;
-%
-%         % Define thresholds for channel 3 based on histogram settings
-%         channel3Min = b_mode - 10;
-%         channel3Max = b_mode + 10;
-%
-%         % Create mask based on chosen histogram thresholds
-%         sliderBW = (I(:,:,1) >= channel1Min ) & (I(:,:,1) <= channel1Max) & ...
-%             (I(:,:,2) >= channel2Min ) & (I(:,:,2) <= channel2Max) & ...
-%             (I(:,:,3) >= channel3Min ) & (I(:,:,3) <= channel3Max);
-%         BW = sliderBW;
-%
-%         % Invert mask
-%         BW = ~BW;
-%
-%         % Initialize output masked image based on input image.
-%         maskedRGBImage = img;
-%
-%         % Set background pixels where BW is false to zero.
-%         maskedRGBImage(repmat(~BW,[1 1 3])) = 0;
-%         disp('qui');
-
-
-% end
-% end
-% imshow(maskedRGBImage)
